@@ -2,14 +2,19 @@
 
 VERSION=0.0.0
 
-echo "Begin $0 v$VERSION"
+echo "$0 v$VERSION"
 
 help(){
 	echo " $0 HELP"
 }
 
 begin(){
-	echo "Begin"
+	if [ $(id -u) != '0' ]
+	then 
+		echo "Error: Please run as root"
+		exit
+	fi
+
 
 	if ! [ -x "$(command -v vim)" ]
 	then
@@ -24,6 +29,11 @@ begin(){
 	then
 		echo "Installing GIT..."
 		apt-get install git -y
+		if ! [ $? -eq 0 ]
+		then
+			echo "Error: GIT installation failed"
+			exit
+		fi
 	fi
 	echo "GIT installation OK"
 
@@ -33,6 +43,11 @@ begin(){
 	then
 		echo "Installing Cscope..."
 		apt-get install cscope -y
+		if ! [ $? -eq 0 ]
+		then
+			echo "Error: Cscope installation failed"
+			exit
+		fi
 	fi
 	echo "Cscope installation OK"
 
@@ -41,6 +56,11 @@ begin(){
 	then
 		echo "Installing Ctags..."
 	        apt-get install exuberant-ctags -y
+		if ! [ $? -eq 0 ]
+		then
+			echo "Error: Ctags installation failed"
+			exit
+		fi
 	fi
 	echo "Ctags installation OK"
 
