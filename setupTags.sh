@@ -50,7 +50,7 @@ echo "Tag file created successfully"
 if [ -x $(command -v cscope) ]
 then
 	echo "Creating Cscope file..."
-	cscope -i -b $TAG_FILE
+	cscope -b -i $TAG_FILE
 	echo "Cscope file created successfully"
 fi
 
